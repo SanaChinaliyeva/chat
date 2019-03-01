@@ -4,6 +4,7 @@ import Messages from '../components/Messages/Messages';
 import AddMessageForm from '../components/AddMessageForm/AddMessageForm';
 
 const M_URL = "http://146.185.154.90:8000/messages";
+const intervals = [];
 
 class App extends Component {
   state = {
@@ -13,6 +14,12 @@ class App extends Component {
 
   componentDidMount() {
     this.getMessages();
+    const interval = setInterval(this.getMessages, 5000);
+    intervals.push(interval);
+  };
+
+  componentWillUnmount() {
+    intervals.map(interval => clearInterval(interval));
   };
 
   getMessages = () => {
