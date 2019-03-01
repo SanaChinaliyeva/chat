@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import Message from '../components/Messages/Message/Message';
+import Messages from '../components/Messages/Messages';
+
+const messages = [
+  {message: "hello", datetime: "21.02.2019", id: 0}
+];
 
 class App extends Component {
   render() {
@@ -10,7 +14,7 @@ class App extends Component {
           <h5 className="card-header">AJS1</h5>
           <div className="card-body" id="chat-body" style={{maxHeight: "300px",
           overflowY: "scroll"}}>
-            <Message message="hello" date="12.01.2019" author="Hello" />
+            <Messages messages={messages} />
           </div>
         </div>
       </div>
