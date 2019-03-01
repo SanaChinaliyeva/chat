@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Messages from '../components/Messages/Messages';
+import AddMessageForm from '../components/AddMessageForm/AddMessageForm';
 
 const M_URL = "http://146.185.154.90:8000/messages";
 
 class App extends Component {
   state = {
-    messages: []
+    messages: [],
+    currentMessage: ""
   };
 
   componentDidMount() {
@@ -26,6 +28,25 @@ class App extends Component {
     });
   };
 
+  handleChange = e => {
+    let userInput = e.target.value;
+    this.setState({currentMessage: userInput});
+  };
+
+  sendMessage = (e) => {
+    e.preventDefault();
+    const message = new URLSearchParams();
+    message.set('message', this.state.currentMessage);
+    message.set('author', "girls");
+    fetch(M_URL, {
+      method: 'post',
+      body: message
+    }).catch(function(err){console.log(err)});
+    this.getMessages();
+    this.setState({currentMessage: ""});
+  };
+
+
   render() {
     const messages = this.state.messages;
     return (
@@ -36,6 +57,7 @@ class App extends Component {
           overflowY: "scroll"}}>
             <Messages messages={messages} />
           </div>
+          <AddMessageForm currentMessage={this.state.currentMessage} handleChange={this.handleChange} handleClick={this.sendMessage} />
         </div>
       </div>
       );
