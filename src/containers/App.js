@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Message from '../components/Messages/Message/Message';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="App container">
+        <div className="card">
+          <h5 className="card-header">AJS1</h5>
+          <div className="card-body" id="chat-body" style={{maxHeight: "300px",
+          overflowY: "scroll"}}>
+            <Message message="hello" date="12.01.2019" author="Hello" />
+          </div>
+        </div>
       </div>
-    );
+      );
+    }
   }
-}
-
-export default App;
+  
+  export default App;
+  
