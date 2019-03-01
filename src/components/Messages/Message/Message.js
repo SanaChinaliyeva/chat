@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import './Message.css';
 
 class Message extends Component {
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.message.id !== this.props.message.id;
+    }
     render() {
         return (
             <div className="card mb-1">

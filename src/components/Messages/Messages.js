@@ -5,7 +5,7 @@ const Messages = props => {
     return (
         <div>
             {props.messages.map(message => {
-                return (<Message key={message.id} message={message.message} date={message.datetime} author="someone" />)
+                return (<Message key={message._id} message={message.message} date={message.datetime} author="someone" />)
             })}
         </div>
     );

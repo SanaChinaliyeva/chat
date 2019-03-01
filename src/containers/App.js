@@ -2,12 +2,32 @@ import React, { Component } from 'react';
 import './App.css';
 import Messages from '../components/Messages/Messages';
 
-const messages = [
-  {message: "hello", datetime: "21.02.2019", id: 0}
-];
+const M_URL = "http://146.185.154.90:8000/messages";
 
 class App extends Component {
+  state = {
+    messages: []
+  };
+
+  componentDidMount() {
+    this.getMessages();
+  };
+
+  getMessages = () => {
+    fetch(M_URL).then(response => {
+      if (response.ok) {
+          return response.json();
+      }
+      throw new Error('Something went wrong with network request');
+      }).then(messages => {
+      this.setState({messages});
+      }).catch(error => {
+      console.log(error);
+    });
+  };
+
   render() {
+    const messages = this.state.messages;
     return (
       <div className="App container">
         <div className="card">
@@ -19,8 +39,8 @@ class App extends Component {
         </div>
       </div>
       );
-    }
-  }
+    };
+  };
   
   export default App;
   
