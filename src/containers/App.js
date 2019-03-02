@@ -7,6 +7,7 @@ const M_URL = "http://146.185.154.90:8000/messages";
 const intervals = [];
 
 class App extends Component {
+  ref = React.createRef();
   state = {
     messages: [],
     currentMessage: ""
@@ -16,11 +17,11 @@ class App extends Component {
     this.getMessages();
     const interval = setInterval(this.getMessages, 5000);
     intervals.push(interval);
-  };
+  }
 
   componentWillUnmount() {
     intervals.map(interval => clearInterval(interval));
-  };
+  }
 
   getMessages = () => {
     fetch(M_URL).then(response => {
@@ -33,6 +34,7 @@ class App extends Component {
       }).catch(error => {
       console.log(error);
     });
+    this.node.scrollTop = this.node.scrollHeight;
   };
 
   handleChange = e => {
@@ -53,14 +55,13 @@ class App extends Component {
     this.setState({currentMessage: ""});
   };
 
-
   render() {
     const messages = this.state.messages;
     return (
       <div className="App container">
         <div className="card">
           <h5 className="card-header">AJS1</h5>
-          <div className="card-body" id="chat-body" style={{maxHeight: "300px",
+          <div ref={(node) => this.node = node} className="card-body" id="chat-body" style={{maxHeight: "300px",
           overflowY: "scroll"}}>
             <Messages messages={messages} />
           </div>
